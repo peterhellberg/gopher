@@ -13,6 +13,7 @@ func TestListingString(t *testing.T) {
 		l    Listing
 		want string
 	}{
+		{Listing{}, ""},
 		{Listing{[]Entry{
 			{'0', "Foo", "foo", "test", "70"},
 			{'1', "Bar", "bar", "test", "70"},
