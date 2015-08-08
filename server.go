@@ -61,10 +61,10 @@ func (s *Server) Serve(c *net.TCPConn) {
 
 		filepath.Walk(fn, func(path string, info os.FileInfo, err error) error {
 			if info.IsDir() {
-				return list.VisitDir(path, s.Root, s.Host, s.Port, info)
+				return list.VisitDir(info.Name(), path, s.Root, s.Host, s.Port)
 			}
 
-			list.VisitFile(path, s.Root, s.Host, s.Port, info)
+			list.VisitFile(info.Name(), path, s.Root, s.Host, s.Port)
 
 			return nil
 		})

@@ -3,7 +3,6 @@ package gopher
 import (
 	"bytes"
 	"fmt"
-	"os"
 	"path/filepath"
 	"strings"
 )
@@ -52,18 +51,18 @@ func (l Listing) String() string {
 	return b.String()
 }
 
-func (l *Listing) VisitDir(path, root, host, port string, f os.FileInfo) error {
+func (l *Listing) VisitDir(name, path, root, host, port string) error {
 	if len(l.entries) == 0 {
 		l.entries = append(l.entries, Entry{}) // sentinel value
 		return nil
 	}
 
-	l.entries = append(l.entries, Entry{'1', f.Name(), path[len(root):], host, port})
+	l.entries = append(l.entries, Entry{'1', name, path[len(root):], host, port})
 
 	return filepath.SkipDir
 }
 
-func (l *Listing) VisitFile(path, root, host, port string, f os.FileInfo) {
+func (l *Listing) VisitFile(name, path, root, host, port string) {
 	t := byte('9') // Binary
 
 	for s, c := range Suffixes {
@@ -73,5 +72,5 @@ func (l *Listing) VisitFile(path, root, host, port string, f os.FileInfo) {
 		}
 	}
 
-	l.entries = append(l.entries, Entry{t, f.Name(), path[len(root):], host, port})
+	l.entries = append(l.entries, Entry{t, name, path[len(root):], host, port})
 }
