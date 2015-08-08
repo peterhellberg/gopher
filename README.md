@@ -4,7 +4,7 @@
 [![GoDoc](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat)](https://godoc.org/github.com/peterhellberg/gopher)
 [![License MIT](https://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat)](https://github.com/peterhellberg/gopher#license-mit)
 
-A simple server for the [Gopher](https://en.wikipedia.org/wiki/Gopher_%28protocol%29)
+A server for the [Gopher](https://en.wikipedia.org/wiki/Gopher_%28protocol%29)
 protocol written in [Go](http://golang.org/) initially based on [gogopherd](https://github.com/nf/gogopherd) by [Andrew Gerrand](https://twitter.com/enneff).
 
 > **Note:** This project is meant to be an experiment, do not expect any stability guarantees.
