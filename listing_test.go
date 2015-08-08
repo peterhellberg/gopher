@@ -27,3 +27,41 @@ func TestListingString(t *testing.T) {
 		}
 	}
 }
+
+func TestListingVisitDir(t *testing.T) {
+	l := Listing{[]Entry{
+		{'0', "Foo", "foo", "test", "70"},
+		{'1', "Bar", "bar", "test", "70"},
+	}}
+
+	l.VisitDir("Dir", "bar/baz", "bar/", "example", "70")
+
+	if got, want := len(l.entries), 3; got != want {
+		t.Fatalf(`len(l.entries) = %d, want %d`, got, want)
+	}
+
+	e := l.entries[2]
+
+	if got, want := e.String(), "1Dir\tbaz\texample\t70\r\n"; got != want {
+		t.Fatalf(`e.String() = %q, want %q`, got, want)
+	}
+}
+
+func TestListingVisitFile(t *testing.T) {
+	l := Listing{[]Entry{
+		{'0', "Foo", "foo", "test", "70"},
+		{'1', "Bar", "bar", "test", "70"},
+	}}
+
+	l.VisitFile("File", "bar/baz.png", "bar/", "example", "70")
+
+	if got, want := len(l.entries), 3; got != want {
+		t.Fatalf(`len(l.entries) = %d, want %d`, got, want)
+	}
+
+	e := l.entries[2]
+
+	if got, want := e.String(), "IFile\tbaz.png\texample\t70\r\n"; got != want {
+		t.Fatalf(`e.String() = %q, want %q`, got, want)
+	}
+}
