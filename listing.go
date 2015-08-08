@@ -36,18 +36,14 @@ func (l Listing) String() string {
 	var b bytes.Buffer
 
 	for _, e := range l.entries {
-		if e.Type == 0 {
-			continue // skip sentinel value
-		}
-
-		if e.Type == 1 {
+		if e.Type == '1' {
 			fmt.Fprint(&b, e)
 		}
 	}
 
 	for _, e := range l.entries {
-		if e.Type == 0 {
-			continue // skip sentinel value
+		if e.Type == 0 || e.Type == '1' {
+			continue // skip sentinel value and directories
 		}
 
 		fmt.Fprint(&b, e)
