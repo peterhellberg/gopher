@@ -3,6 +3,7 @@ package gopher
 import (
 	"bufio"
 	"fmt"
+	"io"
 	"log"
 	"net"
 	"os"
@@ -42,7 +43,7 @@ func (s *Server) Serve(c *net.TCPConn) {
 
 	p, err := s.getPath(c)
 	if err != nil {
-		fmt.Fprint(c, s.Error("invalid request"))
+		fmt.Fprint(c, s.ErrorListing("invalid request"))
 
 		return
 	}
@@ -51,7 +52,7 @@ func (s *Server) Serve(c *net.TCPConn) {
 
 	fi, err := os.Stat(fn)
 	if err != nil {
-		fmt.Fprint(c, s.Error("not found"))
+		fmt.Fprint(c, s.ErrorListing("not found"))
 
 		return
 	}
@@ -76,7 +77,7 @@ func (s *Server) Serve(c *net.TCPConn) {
 
 	f, err := os.Open(fn)
 	if err != nil {
-		fmt.Fprint(c, s.Error("couldn't open file"))
+		fmt.Fprint(c, s.ErrorListing("couldn't open file"))
 		return
 	}
 	defer f.Close()
@@ -84,16 +85,16 @@ func (s *Server) Serve(c *net.TCPConn) {
 	c.ReadFrom(f)
 }
 
-func (s *Server) Error(msg string) Listing {
+func (s *Server) ErrorListing(msg string) Listing {
 	return Listing{[]Entry{{Type: 3, Display: msg}}}
 }
 
-func (s *Server) filename(p []byte) string {
-	return s.Root + filepath.Clean("/"+string(p))
+func (s *Server) filename(p string) string {
+	return s.Root + filepath.Clean("/"+p)
 }
 
-func (s *Server) getPath(c *net.TCPConn) ([]byte, error) {
-	p, _, err := bufio.NewReader(c).ReadLine()
+func (s *Server) getPath(rd io.Reader) (string, error) {
+	p, _, err := bufio.NewReader(rd).ReadLine()
 
-	return p, err
+	return string(p), err
 }
