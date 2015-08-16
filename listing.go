@@ -7,6 +7,7 @@ import (
 	"strings"
 )
 
+// Suffixes is a map of file extensions to item type characters
 var Suffixes = map[string]byte{
 	"aiff":     's',
 	"au":       's',
@@ -27,10 +28,12 @@ var Suffixes = map[string]byte{
 	"wav":      's',
 }
 
+// Listing is a Gopher listing containing entries
 type Listing struct {
 	entries []Entry
 }
 
+// String returns a Gopher listing formatted string
 func (l Listing) String() string {
 	var b bytes.Buffer
 
@@ -51,6 +54,7 @@ func (l Listing) String() string {
 	return b.String()
 }
 
+// VisitDir appends a dir entry to the list of entries in the listing
 func (l *Listing) VisitDir(name, path, root, host, port string) error {
 	if len(l.entries) == 0 {
 		l.entries = append(l.entries, Entry{}) // sentinel value
@@ -62,6 +66,7 @@ func (l *Listing) VisitDir(name, path, root, host, port string) error {
 	return filepath.SkipDir
 }
 
+// VisitFile appends a file entry to the list of entries in the listing
 func (l *Listing) VisitFile(name, path, root, host, port string) {
 	t := byte('9') // Binary
 

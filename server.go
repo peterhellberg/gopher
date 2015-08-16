@@ -10,6 +10,7 @@ import (
 	"path/filepath"
 )
 
+// Server is a Gopher server
 type Server struct {
 	Logger *log.Logger
 	Host   string
@@ -38,6 +39,7 @@ func (s *Server) ListenAndServe() error {
 	}
 }
 
+// Serve Gopher clients
 func (s *Server) Serve(c *net.TCPConn) {
 	defer c.Close()
 
@@ -85,6 +87,7 @@ func (s *Server) Serve(c *net.TCPConn) {
 	c.ReadFrom(f)
 }
 
+// ErrorListing creates an error listing
 func (s *Server) ErrorListing(msg string) Listing {
 	return Listing{[]Entry{{Type: 3, Display: msg}}}
 }
