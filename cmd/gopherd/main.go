@@ -52,7 +52,14 @@ func parseFlags() {
 
 	flag.Parse()
 
-	if root = strings.TrimSuffix(flag.Arg(0), "/"); root == "" {
-		flag.Usage()
+	root = strings.TrimSuffix(flag.Arg(0), "/")
+
+	if root == "" || root == "." {
+		dir, err := os.Getwd()
+		if err != nil {
+			flag.Usage()
+		}
+
+		root = dir
 	}
 }
