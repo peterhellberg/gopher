@@ -9,7 +9,7 @@ func TestServerErrorListing(t *testing.T) {
 	s := &Server{}
 	l := s.ErrorListing("test error")
 
-	if got, want := l.String(), "\x03test error\t\t\t\r\n"; got != want {
+	if got, want := l.String(), "\x03test error\t\t\t0\r\n"; got != want {
 		t.Fatalf(`s.ErrorListing("test error").String() = %q, want %q`, got, want)
 	}
 }

@@ -13,6 +13,26 @@ protocol written in [Go](http://golang.org/) initially based on [gogopherd](http
 
     go get -u github.com/peterhellberg/gopher/cmd/gopherd
 
+## Compile
+
+	go build -o gopher.local.native cmd/gopherd/main.go
+
+## Usage
+For a standalone server use the following command to run the server on the localhost under port 7070.
+
+	./gopher.local.native \
+		-host localhost \
+		-port 7070 \
+		-root content
+
+For usage as a CGI script or to just test one call, try the `-once` flag with the request of interest. Provide a `-host` and `-port` as normal because these values are used in the return content.
+
+	./gopher.local.native \
+	    -host localhost \
+	    -port 7070 \
+	    -root content \
+	    -once /README.md
+
 ## License (MIT)
 
 Copyright (c) 2015-2018 [Peter Hellberg](https://c7.se/)
