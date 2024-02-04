@@ -1,5 +1,7 @@
 ################################################################################
 # An overly simple set of functions for displaying color and style in a console
+# By Thomas.Cherry@gmail.com
+# Simply copy into any project to add color.
 ################################################################################
 
 # Wrap a color number in a terminal escape sequence
@@ -8,6 +10,7 @@ function colorwrap() {
 	printf "\033[0;${color}m"
 }
 
+# Wrap a style number in a terminal escape sequence
 function stylewrap() {
 	style=$1
 	printf "\033[${style}m"
@@ -28,7 +31,7 @@ MAGENTA=35 						; magenta=45
 CYAN=36 						; cyan=46
 WHITE=37 						; white=47
 
-# Escaped colors
+# Escaped colors, F for foreground, B for background
 FBLACK=$(colorwrap $BLACK)		; BBLACK=$(colorwrap $black)
 FRED=$(colorwrap $RED)			; BRED=$(colorwrap $red)
 FGREEN=$(colorwrap $GREEN)		; BGREEN=$(colorwrap $green)
@@ -47,6 +50,9 @@ under=4 	; UNDER=$(stylewrap ${under})
 blink=5 	; BLINK=$(stylewrap ${blink})
 fast=6 		; FAST=$(stylewrap ${fast})			# not well supported
 inverse=7 	; INVERSE=$(stylewrap ${inverse})
+
+################################################################################
+# Functions for use externally
 
 # Color print with style using just color numbers
 function cprints() {
