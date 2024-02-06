@@ -1,0 +1,4 @@
+iInfo page	column	2
+iLinks below	column	2
+0Readme	/content/README.md	gopher://localhost	7070
+0Will Fail	/content/fake.txt	gopher://localhost	7070

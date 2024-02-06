@@ -15,12 +15,12 @@ func TestListingString(t *testing.T) {
 	}{
 		{Listing{}, ""},
 		{Listing{[]Entry{
-			{'0', "Foo", "foo", "test", "70"},
-			{'1', "Bar", "bar", "test", "70"},
+			{'0', "Foo", "foo", "test", 70},
+			{'1', "Bar", "bar", "test", 70},
 		}}, "1Bar\tbar\ttest\t70\r\n0Foo\tfoo\ttest\t70\r\n"},
 		{Listing{[]Entry{
-			{'I', "Baz", "baz", "test2", "7070"},
-			{'1', "Qux", "qux", "test2", "7070"},
+			{'I', "Baz", "baz", "test2", 7070},
+			{'1', "Qux", "qux", "test2", 7070},
 		}}, "1Qux\tqux\ttest2\t7070\r\nIBaz\tbaz\ttest2\t7070\r\n"},
 	} {
 		if got := tt.l.String(); got != tt.want {
@@ -38,18 +38,18 @@ func TestListingVisitDir(t *testing.T) {
 		path    string
 		root    string
 		host    string
-		port    string
+		port    int
 	}{
-		{Listing{}, 1, "\x00\t\t\t\r\n", "", "", "", "", ""},
+		{Listing{}, 1, "\x00\t\t\t0\r\n", "", "", "", "", 0},
 		{Listing{[]Entry{
-			{'0', "Foo", "foo", "test", "70"},
-			{'1', "Bar", "bar", "test", "70"},
+			{'0', "Foo", "foo", "test", 70},
+			{'1', "Bar", "bar", "test", 70},
 		}}, 3, "1Dir\tbaz\texample\t70\r\n",
-			"Dir", "bar/baz", "bar/", "example", "70"},
+			"Dir", "bar/baz", "bar/", "example", 70},
 	} {
 		l := tt.listing
 
-		l.VisitDir("Dir", "bar/baz", "bar/", "example", "70")
+		l.VisitDir("Dir", "bar/baz", "bar/", "example", 70)
 
 		if got, want := len(l.entries), tt.count; got != want {
 			t.Fatalf(`len(l.entries) = %d, want %d`, got, want)
@@ -67,11 +67,11 @@ func TestListingVisitDir(t *testing.T) {
 
 func TestListingVisitFile(t *testing.T) {
 	l := Listing{[]Entry{
-		{'0', "Foo", "foo", "test", "70"},
-		{'1', "Bar", "bar", "test", "70"},
+		{'0', "Foo", "foo", "test", 70},
+		{'1', "Bar", "bar", "test", 7070},
 	}}
 
-	l.VisitFile("File", "bar/baz.png", "bar/", "example", "70")
+	l.VisitFile("File", "bar/baz.png", "bar/", "example", 70)
 
 	if got, want := len(l.entries), 3; got != want {
 		t.Fatalf(`len(l.entries) = %d, want %d`, got, want)

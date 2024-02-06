@@ -72,7 +72,7 @@ func (l Listing) String() string {
 }
 
 // VisitDir appends a dir entry to the list of entries in the listing
-func (l *Listing) VisitDir(name, path, root, host, port string) error {
+func (l *Listing) VisitDir(name, path, root, host string, port int) error {
 	if len(l.entries) == 0 {
 		l.entries = append(l.entries, Entry{}) // sentinel value
 		return nil
@@ -84,7 +84,7 @@ func (l *Listing) VisitDir(name, path, root, host, port string) error {
 }
 
 // VisitFile appends a file entry to the list of entries in the listing
-func (l *Listing) VisitFile(name, path, root, host, port string) {
+func (l *Listing) VisitFile(name, path, root, host string, port int) {
 	t := byte('9') // Binary
 
 	for s, c := range Suffixes {
