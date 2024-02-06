@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 
 # This script exists primary to document the different actions that have been
 # taken to build and use this application

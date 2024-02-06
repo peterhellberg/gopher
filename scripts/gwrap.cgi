@@ -16,7 +16,7 @@ fi
 printf "Content-Type: text/text\n"
 printf "X-Script-Name: $SCRIPT_NAME\n"
 printf "X-Query-Name: $QUERY_STRING\n"
-printf "X-Powered-By: Thomas version of CGI Gopher\n"
+printf "X-Powered-By: CGI Gopher\n"
 printf "\n"
 
 ./gopher \
